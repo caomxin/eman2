@@ -12,3 +12,7 @@ cmake $SRC_DIR
 
 make -j${CPU_COUNT}
 make install
+
+if [ "$(uname -s)" == "Linux" ];then
+    rm -vf ${PREFIX}/include/GL
+fi
