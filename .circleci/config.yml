@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build_no_recipe:
+  setup_cache:
     machine: true
     steps:
       - run: sudo apt-get update && sudo apt-get install freeglut3-dev
@@ -9,21 +9,14 @@ jobs:
       - restore_cache:
           keys:
             - mini-eman-deps-11.0
-      - run: bash ci_support/build_no_recipe.sh
-
-  build_recipe:
-    machine: true
-    steps:
-      - run: sudo apt-get update && sudo apt-get install freeglut3-dev
-      - checkout
-      - restore_cache:
-          keys:
-            - mini-eman-deps-11.0
-      - run: bash ci_support/build_recipe.sh
+      - run: source ci_support/setup_conda.sh
+      - save_cache:
+          key: mini-eman-deps-11.0
+          paths:
+            - ~/miniconda2
 
 workflows:
   version: 2
-  build_recipe_and_no_recipe:
+  setup_cache:
     jobs:
-      - build_no_recipe
-      - build_recipe
+      - setup_cache
