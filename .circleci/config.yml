@@ -8,10 +8,10 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - mini-eman-deps-11.1
+            - mini-eman-deps-11.2
       - run: source ci_support/setup_conda.sh
       - save_cache:
-          key: mini-eman-deps-11.2
+          key: mini-eman-deps-11.3
           paths:
             - ~/miniconda2
 
